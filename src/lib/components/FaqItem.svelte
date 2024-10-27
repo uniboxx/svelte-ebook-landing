@@ -1,5 +1,5 @@
 <script lang="ts">
-  import chevronDown from '$assets/icons/chevron-down.svg';
+  import chevronDown from "$assets/icons/chevron-down.svg";
 
   interface Props {
     faq: {
@@ -39,9 +39,7 @@
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition:
-      max-height 0.3s ease-out,
-      opacity 0.3s ease-out;
+    transition: 0.3s ease-out;
   }
 
   button img {
