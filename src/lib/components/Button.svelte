@@ -1,14 +1,37 @@
 <script lang="ts">
+  import { loadStripe } from "@stripe/stripe-js";
   import type { Snippet } from "svelte";
+  import { PUBLIC_STRIPE_KEY } from "$env/static/public";
+  import { goto } from "$app/navigation";
+  // console.log(PUBLIC_STRIPE_KEY)
 
-  interface Props{
+  interface Props {
     children: Snippet;
     class?: string;
   }
-  const {children,...props}:Props=$props();
+  const { children, ...props }: Props = $props();
+
+  async function onclick() {
+    try {
+      const stripe = await loadStripe(PUBLIC_STRIPE_KEY);
+
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const { sessionId } = await response.json();
+
+      await stripe.redirectToCheckout({ sessionId });
+    } catch (error) {
+      goto("/checkout/failure");
+    }
+  }
 </script>
 
-<button {...props}>{@render children()}</button>
+<button {...props} {onclick}>{@render children()}</button>
 
 <style>
   button {

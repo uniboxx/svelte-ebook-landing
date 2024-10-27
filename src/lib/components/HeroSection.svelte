@@ -1,7 +1,9 @@
 <script lang="ts">
-  import bookCover from '$assets/images/book_cover.png';
-  import phoneCover from '$assets/images/phone_cover.png';
-  import { Button } from '$components';
+  import bookCover from "$assets/images/book_cover.png";
+  import phoneCover from "$assets/images/phone_cover.png";
+  import { Button } from "$components";
+
+  let { children } = $props();
 </script>
 
 <section class="hero">
@@ -15,16 +17,20 @@
     <img src={phoneCover} alt="phone cover" class="phone-cover" />
   </div>
   <div class="hero-text white text-center">
-    <h1>THIS EBOOK WILL</h1>
-    <h1>SAVE YOUR MONEY</h1>
-    <h1 class="mb-m">TIME & NERVES</h1>
-    <p class="light-grey mb-l">
-      I moved to Spain seven years ago. The process was painful and difficult. I
-      learned most things the hard way: finding a job, getting a visa,
-      calculating my cost of living, choosing an apartment. That's why I wrote
-      this e-book, to tell you how I did it. No bullshit, no stress.
-    </p>
-    <Button>Purchase E-book for $10</Button>
+    {#if children}
+      {@render children()}
+    {:else}
+      <h1>THIS EBOOK WILL</h1>
+      <h1>SAVE YOUR MONEY</h1>
+      <h1 class="mb-m">TIME & NERVES</h1>
+      <p class="light-grey mb-l">
+        I moved to Spain seven years ago. The process was painful and difficult.
+        I learned most things the hard way: finding a job, getting a visa,
+        calculating my cost of living, choosing an apartment. That's why I wrote
+        this e-book, to tell you how I did it. No bullshit, no stress.
+      </p>
+      <Button>Purchase E-book for €10</Button>
+    {/if}
   </div>
 </section>
 
